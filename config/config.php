@@ -1084,7 +1084,7 @@ $config = array(
      * The username and password to use when connecting to the database.
      */
     'store.sql.username' => $db['username'],
-    'store.sql.password' => $db['username'],
+    'store.sql.password' => $db['password'],
 
     /*
      * The prefix we should use on our tables.
