@@ -916,6 +916,11 @@ $config = array(
      * Both Shibboleth and SAML 2.0
      */
     'authproc.sp' => array(
+
+        10 => array(
+            'class' => 'core:AttributeMap', 'oid2name'
+        ),
+
         /*
         10 => array(
             'class' => 'core:AttributeMap', 'removeurnprefix'
