@@ -650,7 +650,7 @@ $config = array(
      * than one instance is using memcache, you probably want to assign
      * a unique value per instance to this setting to avoid data collision.
      */
-    'memcache_store.prefix' => '',
+    'memcache_store.prefix' => null,
 
     /*
      * This value is the duration data should be stored in memcache. Data
