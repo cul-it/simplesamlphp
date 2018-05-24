@@ -86,7 +86,7 @@ $config = array(
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'Administrator',
-    'technicalcontact_email' => 'na@example.org',
+    'technicalcontact_email' => 'jgr25@cornell.edu',
 
     /*
      * The envelope from address for outgoing emails.
