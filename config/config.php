@@ -163,7 +163,7 @@ $config = array(
      * Example:
      *   'trusted.url.domains' => array('sp.example.com', 'app.example.com'),
      */
-    'trusted.url.domains' => array(),
+    'trusted.url.domains' => array($host),
 
     /*
      * Enable regular expression matching of trusted.url.domains.
