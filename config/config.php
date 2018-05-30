@@ -86,7 +86,7 @@ $config = array(
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'Administrator',
-    'technicalcontact_email' => 'jgr25@cornell.edu',
+    'technicalcontact_email' => 'CUL-LIBSYS-L@list.cornell.edu',
 
     /*
      * The envelope from address for outgoing emails.
