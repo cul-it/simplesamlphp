@@ -50,7 +50,8 @@ $metadata['https://shibidp.cit.cornell.edu/idp/shibboleth'] = array (
       'encryption' => true,
       'signing' => true,
       'type' => 'X509Certificate',
-      'X509Certificate' => 'MIIDSDCCAjCgAwIBAgIVAOZ8NfBem6sHcI7F39sYmD/JG4YDMA0GCSqGSIb3DQEB
+      'X509Certificate' => '
+MIIDSDCCAjCgAwIBAgIVAOZ8NfBem6sHcI7F39sYmD/JG4YDMA0GCSqGSIb3DQEB
 BQUAMCIxIDAeBgNVBAMTF3NoaWJpZHAuY2l0LmNvcm5lbGwuZWR1MB4XDTA5MTEy
 MzE4NTI0NFoXDTI5MTEyMzE4NTI0NFowIjEgMB4GA1UEAxMXc2hpYmlkcC5jaXQu
 Y29ybmVsbC5lZHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCTURo9
@@ -67,7 +68,9 @@ Yv+XYLmZBy04EfV0L7HjYX5aGIWLDtz9YAis4g3xTPWe1/bjdltUq5seRuksJjyb
 prGI2oAv/ShPBOyrkadectHzvu5K6CL7AxNTWCSXswtfdsuxcKo65tO5TRO1hWlr
 7Pq2F+Oj2hOvcwC0vOOjlYNe9yRE9DjJAzv4rrZUg71R3IEKNjfOF80LYPAFD2Sp
 p36uB6TmSYl1nBmS5LgWF4EpEuODPSmy4sIV6jl1otuyI/An2dOcNqcgu7tYEXLX
-C8N6DXggDWPtPRdpk96UW45huvXudpZenrcd7A==',
+C8N6DXggDWPtPRdpk96UW45huvXudpZenrcd7A==
+
+                    ',
     ),
   ),
   'scope' => 
@@ -89,6 +92,10 @@ C8N6DXggDWPtPRdpk96UW45huvXudpZenrcd7A==',
     'PrivacyStatementURL' => 
     array (
     ),
+  ),
+  'name' => 
+  array (
+    'en' => 'Cornell University',
   ),
 );
 ?>

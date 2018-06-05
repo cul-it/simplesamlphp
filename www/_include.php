@@ -1,7 +1,26 @@
 <?php
-
-// initialize the autoloader
-require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
+/**
+ * support for proper SERVER_NAME and SERVER_PORT on Pantheon
+ * see https://pantheon.io/docs/server_name-and-server_port/#set-server_port-correctly
+ * This affects the port for redirects after simplesamlphp
+ * see RelayState in 
+ */
+if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+    $_SERVER['SERVER_NAME'] = $_SERVER['HTTP_HOST'];
+    if (isset($_SERVER['HTTP_USER_AGENT_HTTPS']) && $_SERVER['HTTP_USER_AGENT_HTTPS'] === 'ON') {
+      $_SERVER['SERVER_PORT'] = 443;
+    }
+    else {
+      $_SERVER['SERVER_PORT'] = 80;
+    }
+    define("SIMPLESAMLPHP_PATH", $_ENV['HOME'] ."/files/private/cul-it-simplesamlphp");
+    // initialize the autoloader
+    require_once(SIMPLESAMLPHP_PATH.'/lib/_autoload.php');
+  }
+else {
+    // initialize the autoloader
+    require_once(dirname(dirname(__FILE__)).'/lib/_autoload.php');
+}
 
 // enable assertion handler for all pages
 SimpleSAML_Error_Assertion::installHandler();

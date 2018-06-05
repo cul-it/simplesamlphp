@@ -126,7 +126,7 @@ $config = array(
      * metadata listing and diagnostics pages.
      * You can also put a hash here; run "bin/pwgen.php" to generate one.
      */
-    'auth.adminpassword' => '123',
+    'auth.adminpassword' => '1860QOW+m3F6MWg9WVQU6calczzW3NswI4tAFDtuFK/049aFq/KYaQ==',
 
     /*
      * Set this options to true if you want to require administrator password to access the web interface
