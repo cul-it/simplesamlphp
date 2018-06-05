@@ -46,6 +46,11 @@ $metadata['https://shibidp-test.cit.cornell.edu/idp/shibboleth'] = array (
       'index' => 2,
     ),
   ),
+  'NameIDFormats' => 
+  array (
+    0 => 'urn:mace:shibboleth:1.0:nameIdentifier',
+    1 => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+  ),
   'keys' => 
   array (
     0 => 
