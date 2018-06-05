@@ -16,6 +16,11 @@ $config = array(
 	'default-sp' => array(
 		'saml:SP',
 
+		// see https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1_1
+        // these are from self-signed certificate in /cert
+		'privatekey' => 'saml.pem',
+        'certificate' => 'saml.crt',        
+
 		// The entity ID of this SP.
 		// Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
 		'entityID' => NULL,
@@ -45,7 +50,7 @@ $config = array(
 		 * options in the IdP-remote metadata set and uncomment the following option.
 		 *
 		 * Please refer to the hosted SP configuration reference for more information.
-	 	 */
+	     */
 		//'signature.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
 	),
 
@@ -124,7 +129,7 @@ $config = array(
 	/*
 	'yubikey' => array(
 		'authYubiKey:YubiKey',
- 		'id' => '000',
+        'id' => '000',
 		// 'key' => '012345678',
 	),
 	*/
@@ -162,8 +167,8 @@ $config = array(
 		// custom extension arguments
 		'extension.args' => array(
 			//'http://specs.openid.net/extensions/ui/1.0' => array(
-			//	'mode' => 'popup',
-			//	'icon' => 'true',
+			//  'mode' => 'popup',
+			//  'icon' => 'true',
 			//),
 		),
 	),
