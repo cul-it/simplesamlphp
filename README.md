@@ -28,7 +28,7 @@ See the [simplesamlphp documentation on the certificate](https://simplesamlphp.o
 Storing private files in Pantheon:
 ---
 
-(Pantheon documentation)[https://pantheon.io/docs/private-paths/]  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
+[Pantheon documentation](https://pantheon.io/docs/private-paths/)  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
 
 However, the simplesamlphp /web directory needs to be web accessible. So, we're storing a copy of that directory from the simplesamlphp repo where we used to store the entire thing, in /code/private, as /code/private/www, then making the symlink "simplesaml" point to it. This /www directory & symlink will be included in the Pantheon git repo for each web site needing federated login.
 
