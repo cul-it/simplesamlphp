@@ -38,7 +38,7 @@ $config = array(
      */
    'baseurlpath' => 'https://'. $host .':443/simplesaml/', // SAML should always connect via 443
    'certdir' => 'cert/',
-   'loggingdir' => $_ENV['HOME'] . 'files/private/log/',
+   'loggingdir' => $_ENV['HOME'] . '/files/private/log/',
    'datadir' => 'data/',
    'tempdir' => $_ENV['HOME'] . '/tmp/simplesaml',
 
