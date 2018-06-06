@@ -103,10 +103,11 @@ Your Drupal directory should end up looking like this:
 ├── modules
 ├── pantheon.yml
 ├── private
+|──────www
 ├── profiles
 ├── robots.txt
 ├── scripts
-├── simplesaml -> private/cul-it-simplesamlphp/www
+├── simplesaml -> private/www
 ├── sites
 ├── themes
 ├── update.php
