@@ -16,7 +16,43 @@ Cornell University Library modifications
 
 We started after version 1.15.4.
 
+Identity Management now requires a certificate to encrypt the communication. The certificate has to be stored in the /cert directory in the simplesamlphp top directory, however this directory is excluded by .gitignore, because it contains the private key.
+See the [simplesamlphp documentation on the certificate](https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1_1)
 
+(I’ve created a /cert directory for this purpose, and stored it on my local disk until I can find a better place for it.)
+
+Storing private files in Pantheon:
+
+(Pantheon documentation)[https://pantheon.io/docs/private-paths/]  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
+
+However, the simplesamlphp /web directory needs to be web accessible. So, we're storing a copy of that directory from the simplesamlphp repo where we used to store the entire thing, in /code/private, as /code/private/www, then making the symlink "simplesaml" point to it. This /www directory & symlink will be included in the Pantheon git repo for each web site needing federated login.
+
+The entire body of the simplesamlphp code has to be placed in /files/private/cul-it-simplesamlphp. This is a manual process using [sftp or rsync as described here](https://pantheon.io/docs/rsync-and-sftp/). Once the files are on dev, they can be moved to other environments via the Pantheon Database/Files > Clone Files command.
+
+Example shell script code using rsync:
+
+```
+export ENV=dev
+# Usually dev, test, or live
+export SITE=[uuid]
+# Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/[uuid]
+
+# To Upload/Import
+rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./cul-it-simplesamlphp --temp-dir=~/tmp/ $ENV.$SITE@appserver.$ENV.$SITE.drush.in:files/private/
+```
+
+However, the /cert directory is not part of the cul-it/simplesamlphp repo, so that directory has to be manually added. (In practice, it’s easier to get a local copy of the repo, and add the /cert directory to it before the rsync.)
+
+Customizations of simplesamlphp
+
+Pantheon port problem
+
+Setting up metadata 
+https://annex.library.cornell.edu/simplesaml/module.php/saml/sp/metadata.php/default-sp?output=xhtml
+
+
+Old version of readme below is being replaced
+===========
 How to use:
 ===========
 
