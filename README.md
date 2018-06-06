@@ -13,8 +13,12 @@ Please, [contribute](CONTRIBUTING.md)!
 =============
 
 Cornell University Library modifications
+===
 
-We started after version 1.15.4.
+We forked the [simplesamlphp](https://github.com/simplesamlphp/simplesamlphp) development version somewhere after version 1.15.4.
+
+/cert
+---
 
 Identity Management now requires a certificate to encrypt the communication. The certificate has to be stored in the /cert directory in the simplesamlphp top directory, however this directory is excluded by .gitignore, because it contains the private key.
 See the [simplesamlphp documentation on the certificate](https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1_1)
