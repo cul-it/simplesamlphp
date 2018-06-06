@@ -103,7 +103,7 @@ Your Drupal directory should end up looking like this:
 ├── modules
 ├── pantheon.yml
 ├── private
-|──────www
+│   └──www
 ├── profiles
 ├── robots.txt
 ├── scripts
