@@ -115,7 +115,7 @@ Your Drupal directory should end up looking like this:
 └── xmlrpc.php
 ```
 
-(2)
+(3)
 ```
 {
     ...
