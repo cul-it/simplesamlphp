@@ -13,7 +13,7 @@ if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
     else {
       $_SERVER['SERVER_PORT'] = 80;
     }
-    define("SIMPLESAMLPHP_PATH", $_ENV['HOME'] ."/files/private/cul-it-simplesamlphp");
+    define("SIMPLESAMLPHP_PATH", $_ENV['HOME'] ."/code/private/cul-it-simplesamlphp");
     // initialize the autoloader
     require_once(SIMPLESAMLPHP_PATH.'/lib/_autoload.php');
   }
