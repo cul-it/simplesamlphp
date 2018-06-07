@@ -75,10 +75,10 @@ $config = array(
      * When specified as a relative path, this is relative to the SimpleSAMLphp
      * root directory.
      */
-    'certdir' => 'cert/',
-    'loggingdir' => 'log/',
-    'datadir' => 'data/',
-    'tempdir' => '/tmp/simplesaml',
+    'certdir' => $_ENV['HOME'] . '/files/private/cul-it-simplesamlphp/' . 'cert/',
+    'loggingdir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'log/',
+    'datadir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'data/',
+    'tempdir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'tmp/simplesaml',
 
     /*
      * Some information about the technical persons running this installation.
