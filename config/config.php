@@ -37,10 +37,10 @@ $config = array(
      * reverse proxy).
      */
    'baseurlpath' => 'https://'. $host .':443/simplesaml/', // SAML should always connect via 443
-   'certdir' => 'cert/',
-   'loggingdir' => $_ENV['HOME'] . '/files/private/log/',
-   'datadir' => 'data/',
-   'tempdir' => $_ENV['HOME'] . '/tmp/simplesaml',
+   //'certdir' => 'cert/',
+   //'loggingdir' => $_ENV['HOME'] . '/files/private/log/',
+   //'datadir' => 'data/',
+   //'tempdir' => $_ENV['HOME'] . '/tmp/simplesaml',
 
     /*
      * The 'application' configuration array groups a set configuration options
@@ -75,10 +75,10 @@ $config = array(
      * When specified as a relative path, this is relative to the SimpleSAMLphp
      * root directory.
      */
-    'certdir' => 'cert/',
-    'loggingdir' => 'log/',
+    'certdir' => $_ENV['HOME'] . '/files/private/cul-it-simplesamlphp/' . 'cert/',
+    'loggingdir' => $_ENV['HOME'] . '/files/private/log/',
     'datadir' => 'data/',
-    'tempdir' => '/tmp/simplesaml',
+    'tempdir' => $_ENV['HOME'] . '/tmp/simplesaml',
 
     /*
      * Some information about the technical persons running this installation.

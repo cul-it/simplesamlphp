@@ -28,7 +28,7 @@ See the [simplesamlphp documentation on the certificate](https://simplesamlphp.o
 Storing private files in Pantheon:
 ---
 
-(Pantheon documentation)[https://pantheon.io/docs/private-paths/]  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
+[Pantheon documentation](https://pantheon.io/docs/private-paths/)  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
 
 However, the simplesamlphp /web directory needs to be web accessible. So, we're storing a copy of that directory from the simplesamlphp repo where we used to store the entire thing, in /code/private, as /code/private/www, then making the symlink "simplesaml" point to it. This /www directory & symlink will be included in the Pantheon git repo for each web site needing federated login.
 
@@ -39,10 +39,11 @@ However, the /cert directory is not part of the cul-it/simplesamlphp repo, so th
 Customizations
 ==============
 
+* Originally, /config/ and /metadata/ were excluded by .gitignore. We have included them in this repo to hold customizations for CUL.
 * simplesamlphp uses $_SERVER['SERVER_PORT'] to form the redirect URL it uses after the login is complete. This is set to strange numbers in code that's running on Pantheon, causing the redirect to fail. Here is some code to [Set SERVER_PORT Correctly](https://pantheon.io/docs/server_name-and-server_port/#set-server_port-correctly). This had to be placed in [settings.cornell.library.php](https://github.com/cul-it/pantheon-settings/blob/master/settings.cornell.library.php) and also in simplesamlphp in [/www/_include.php](https://github.com/cul-it/simplesamlphp/blob/master/www/_include.php).
 * Since the simplesamlphp code is now split between code/private/www and files/private/cul-it-simplesamlphp, finding the library is tricky. We had to use the Pantheon siteroot variable $_ENV['HOME'] in [settings.cornell.library.php](https://github.com/cul-it/pantheon-settings/blob/master/settings.cornell.library.php), in simplesamlphp in [/www/_include.php](https://github.com/cul-it/simplesamlphp/blob/master/www/_include.php) and also in [/config/config.php](https://github.com/cul-it/simplesamlphp/blob/master/config/config.php).
-* Use the [Shibboleth Integration Request](https://confluence.cornell.edu/x/3lHHF) documentation and [form to get metadata in xml for the dev & test sites](https://shibidp-test.cit.cornell.edu/idp/shibboleth). Convert that xml to php code using [the conversion tool](https://annex.library.cornell.edu/simplesaml/admin/metadata-converter.php), and insert the php into [/metadata/saml20-idp-remote.php.test](https://github.com/cul-it/simplesamlphp/blob/master/metadata/saml20-idp-remote.php.test)
-* Use the [Shibboleth Integration Request](https://confluence.cornell.edu/x/3lHHF) documentation and [form to get metadata in xml for the live site](https://shibidp-test.cit.cornell.edu/idp/shibboleth). Convert that xml to php code using [the conversion tool](https://annex.library.cornell.edu/simplesaml/admin/metadata-converter.php), and insert the php into [/metadata/saml20-idp-remote.php.prod](https://github.com/cul-it/simplesamlphp/blob/master/metadata/saml20-idp-remote.php.prod)
+* Use the [Shibboleth Integration Request](https://confluence.cornell.edu/x/3lHHF) documentation and form to [get metadata in xml for the dev & test sites](https://shibidp-test.cit.cornell.edu/idp/shibboleth). Convert that xml to php code using [the conversion tool](https://annex.library.cornell.edu/simplesaml/admin/metadata-converter.php), and insert the php into [/metadata/saml20-idp-remote.php.test](https://github.com/cul-it/simplesamlphp/blob/master/metadata/saml20-idp-remote.php.test)
+* Use the [Shibboleth Integration Request](https://confluence.cornell.edu/x/3lHHF) documentation and form to [get metadata in xml for the live site](https://shibidp-test.cit.cornell.edu/idp/shibboleth). Convert that xml to php code using [the conversion tool](https://annex.library.cornell.edu/simplesaml/admin/metadata-converter.php), and insert the php into [/metadata/saml20-idp-remote.php.prod](https://github.com/cul-it/simplesamlphp/blob/master/metadata/saml20-idp-remote.php.prod)
 
 How to use:
 ===========
@@ -51,13 +52,14 @@ How to use:
 2. Clone this repo into [somewhere]/cul-it-simplesamlphp.
 3. Make a copy of [somewhere]/cul-it-simplesamlphp/www and put it in [mysite]/private/
 4. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/www. (1)
-5. Add the /cert directory to [somewhere]/cul-it-simplesamlphp
-6. Modify the shell script (2) for your site and rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp
-7. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-8. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-9. For Drupal 8, add some code to the composer.json file in the document root directory. (3)
-10. Push the changes to the remote Pantheon git repo.
-11. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+5. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
+6. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+7. For Drupal 8, add some code to the composer.json file in the document root directory. (3)
+8. Push the changes to the remote Pantheon git repo for the dev site.
+9. Clone the Files from the Pantheon production site to the dev site
+10. Add the /cert directory to [somewhere]/cul-it-simplesamlphp
+11. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+12. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
 
 (1)
 

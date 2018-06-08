@@ -101,7 +101,10 @@ sftp-config.json
 
 ### Composer ###
 composer.phar
-vendor/
+# vendor/
+# run composer install in cul-it-simplesamlphp to build /vendor
+# be sure it's included on server
+!**/cul-it-simplesamlphp/vendor/
 
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
