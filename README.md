@@ -117,35 +117,6 @@ Your Drupal directory should end up looking like this:
 └── xmlrpc.php
 ```
 
-(3)
-```
-{
-    ...
-    "extra": {
-        ...
-        "merge-plugin": {
-            "include": [
-                "core/composer.json"
-            ],
-+           "require": [
-+               "private/cul-it-simplesamlphp/composer.json"
-+           ],
-            "recurse": true,
-            "replace": false,
-            "merge-extra": false
-        },
-        ...
-    }
-    ...
-}
-
-+ add these three lines (without the plus signs) to
-[docroot]/composer.json
-then run
-
-$> composer install
-
-```
 
 
 Details:
