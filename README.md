@@ -52,13 +52,14 @@ How to use:
 2. Clone this repo into [somewhere]/cul-it-simplesamlphp.
 3. Make a copy of [somewhere]/cul-it-simplesamlphp/www and put it in [mysite]/private/
 4. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/www. (1)
-5. Add the /cert directory to [somewhere]/cul-it-simplesamlphp
-6. Modify the shell script (2) for your site and rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp
-7. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-8. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-9. For Drupal 8, add some code to the composer.json file in the document root directory. (3)
-10. Push the changes to the remote Pantheon git repo.
-11. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+5. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
+6. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+7. For Drupal 8, add some code to the composer.json file in the document root directory. (3)
+8. Push the changes to the remote Pantheon git repo for the dev site.
+9. Clone the Files from the Pantheon production site to the dev site
+10. Add the /cert directory to [somewhere]/cul-it-simplesamlphp
+11. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+12. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
 
 (1)
 
