@@ -76,9 +76,9 @@ $config = array(
      * root directory.
      */
     'certdir' => $_ENV['HOME'] . '/files/private/cul-it-simplesamlphp/' . 'cert/',
-    'loggingdir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'log/',
-    'datadir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'data/',
-    'tempdir' => $_ENV['HOME'] . '/files/cul-it-simplesamlphp/' . 'tmp/simplesaml',
+    'loggingdir' => $_ENV['HOME'] . '/files/private/log/',
+    'datadir' => 'data/',
+    'tempdir' => $_ENV['HOME'] . '/tmp/simplesaml',
 
     /*
      * Some information about the technical persons running this installation.
