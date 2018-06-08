@@ -20,21 +20,24 @@ We forked the [simplesamlphp](https://github.com/simplesamlphp/simplesamlphp) de
 /cert
 ---
 
-Identity Management now requires a certificate to encrypt the communication. The certificate has to be stored in the /cert directory in the simplesamlphp top directory, however this directory is excluded by .gitignore, because it contains the private key.
+Identity Management now requires a certificate to encrypt the communication. The certificate is usually stored in the /cert directory in the simplesamlphp top directory, however this directory is excluded by .gitignore, because it contains the private key.
 See the [simplesamlphp documentation on the certificate](https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1_1)
 
-(I’ve created a /cert directory for this purpose, and stored it on my local disk until I can find a better place for it.)
+(I’ve created a /cert directory for this purpose, and stored it in a LastPass secure note.)
 
 Storing private files in Pantheon:
 ---
 
 [Pantheon documentation](https://pantheon.io/docs/private-paths/)  "Private Path for Files” says to put files in /files/private (symlinked by sites/default/files/private) and they stay out of source code control but are distributed to other environments (test/live) by the 'Clone Files' process.
 
-However, the simplesamlphp /web directory needs to be web accessible. So, we're storing a copy of that directory from the simplesamlphp repo where we used to store the entire thing, in /code/private, as /code/private/www, then making the symlink "simplesaml" point to it. This /www directory & symlink will be included in the Pantheon git repo for each web site needing federated login.
+Moving files to /files/private is a manual process using [sftp or rsync as described here](https://pantheon.io/docs/rsync-and-sftp/). Since it's slow, we're only putting the /cert directory here: [pantheon-site-path]/files/private/cul-it-simplesaml/cert
+Once the files are on dev, they can be moved to other environments via the Pantheon Database/Files > Clone Files command.
 
-The entire body of the simplesamlphp code has to be placed in /files/private/cul-it-simplesamlphp. This is a manual process using [sftp or rsync as described here](https://pantheon.io/docs/rsync-and-sftp/). Once the files are on dev, they can be moved to other environments via the Pantheon Database/Files > Clone Files command.
+The simplesamlphp /web directory needs to be web accessible, so we're placing this repo here:
+[pantheon-site-path]/code/private/cul-it-simplesamlphp
+(When you use git to download a Pantheon site, you're downloading [pantheon-site-path]/code.)
 
-However, the /cert directory is not part of the cul-it/simplesamlphp repo, so that directory has to be manually added. (In practice, it’s easier to get a local copy of the repo, and add the /cert directory to it before the rsync.)
+Simplesamlphp uses composer to manage dependencies. Drupal 8 also uses composer, but Drupal 7 does not. To keep from requiring the use of composer everywhere, we include the cul-it-simplesaml/vendor directory and use the autoload.php from that. This may require a modification to the .gitignore that comes with Drupal.
 
 Customizations
 ==============
@@ -49,22 +52,19 @@ How to use:
 ===========
 
 1. If it's not already there, create a [mysite]/private directory in your Drupal site root directory (same place as Drupal's index.php).
-2. Clone this repo into [somewhere]/cul-it-simplesamlphp.
-3. Make a copy of [somewhere]/cul-it-simplesamlphp/www and put it in [mysite]/private/
-4. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/www. (1)
-5. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-6. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-7. For Drupal 8, add some code to the composer.json file in the document root directory. (3)
-8. Push the changes to the remote Pantheon git repo for the dev site.
-9. Clone the Files from the Pantheon production site to the dev site
-10. Add the /cert directory to [somewhere]/cul-it-simplesamlphp
-11. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
-12. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+2. Clone this repo into [mysite]/private/cul-it-simplesamlphp, then delete the .git directory [mysite]/private/cul-it-simplesamlphp/.git
+3. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/cul-it-simplesamlphp/www. (1)
+4. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
+5. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+6. Push the changes to the remote Pantheon git repo for the dev site.
+7. Clone the Files from the Pantheon production site to the dev site
+8. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+9. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
 
 (1)
 
 ```
-ln -s ./private/www simplesaml
+ln -s ./private/cul-it-simplesamlphp/www simplesaml
 ```
 
 (2)
@@ -75,7 +75,7 @@ Example shell script code using rsync:
 export ENV=dev
 # Usually dev, test, or live
 export SITE=[uuid]
-# Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/[uuid]
+# Site UUID from dashboard URL: https://dashboard.pantheon.io/sites/[uuid]#someotherstuff
 
 # To Upload/Import
 rsync -rLvz --size-only --ipv4 --progress -e 'ssh -p 2222' ./cul-it-simplesamlphp --temp-dir=~/tmp/ $ENV.$SITE@appserver.$ENV.$SITE.drush.in:files/private/
@@ -109,7 +109,7 @@ Your Drupal directory should end up looking like this:
 ├── profiles
 ├── robots.txt
 ├── scripts
-├── simplesaml -> private/www
+├── simplesaml -> private/cul-it-simplesamlphp/www
 ├── sites
 ├── themes
 ├── update.php
@@ -117,35 +117,6 @@ Your Drupal directory should end up looking like this:
 └── xmlrpc.php
 ```
 
-(3)
-```
-{
-    ...
-    "extra": {
-        ...
-        "merge-plugin": {
-            "include": [
-                "core/composer.json"
-            ],
-+           "require": [
-+               "private/cul-it-simplesamlphp/composer.json"
-+           ],
-            "recurse": true,
-            "replace": false,
-            "merge-extra": false
-        },
-        ...
-    }
-    ...
-}
-
-+ add these three lines (without the plus signs) to
-[docroot]/composer.json
-then run
-
-$> composer install
-
-```
 
 
 Details:
