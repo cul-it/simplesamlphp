@@ -55,11 +55,12 @@ How to use:
 2. Clone this repo into [mysite]/private/cul-it-simplesamlphp, then delete the .git directory [mysite]/private/cul-it-simplesamlphp/.git
 3. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/cul-it-simplesamlphp/www. (1)
 4. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-5. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-6. Push the changes to the remote Pantheon git repo for the dev site.
-7. Clone the Files from the Pantheon production site to the dev site
-8. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
-9. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+5. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run 
+6. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+7. Push the changes to the remote Pantheon git repo for the dev site.
+8. Clone the Files from the Pantheon production site to the dev site
+9. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+10. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
 
 (1)
 
@@ -117,6 +118,35 @@ Your Drupal directory should end up looking like this:
 └── xmlrpc.php
 ```
 
+(3)
+```
+{
+    ...
+    "extra": {
+        ...
+        "merge-plugin": {
+            "include": [
+                "core/composer.json"
+            ],
++           "require": [
++               "private/cul-it-simplesamlphp/composer.json"
++           ],
+            "recurse": true,
+            "replace": false,
+            "merge-extra": false
+        },
+        ...
+    }
+    ...
+}
+
++ add these three lines (without the plus signs) to
+[docroot]/composer.json
+then run (in [docroot]):
+
+$> composer update --lock
+
+```
 
 
 Details:
