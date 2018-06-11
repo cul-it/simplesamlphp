@@ -55,12 +55,13 @@ How to use:
 2. Clone this repo into [mysite]/private/cul-it-simplesamlphp, then delete the .git directory [mysite]/private/cul-it-simplesamlphp/.git
 3. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/cul-it-simplesamlphp/www. (1)
 4. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-5. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run 
-6. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-7. Push the changes to the remote Pantheon git repo for the dev site.
-8. Clone the Files from the Pantheon production site to the dev site
-9. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
-10. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+5. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run composer update --lock
+6. For Drupal 7, add some lines to .gitignore to allow the cul-it-simplesamlphp/vendor directory to be uploaded (4)
+7. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+8. Push the changes to the remote Pantheon git repo for the dev site.
+9. Clone the Files from the Pantheon production site to the dev site
+10. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+11. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
 
 (1)
 
@@ -148,6 +149,21 @@ $> composer update --lock
 
 ```
 
+(4)
+```
+### Composer ###
+composer.phar
+vendor/
++ # run composer install in cul-it-simplesamlphp to build /vendor
++ # be sure it's included on server
++ !**/cul-it-simplesamlphp/vendor/
+
++ add these three lines (without the plus signs) to
+[docroot]/.gitignore
+
+(You'll have to do this whenever core is updated.)
+
+```
 
 Details:
 ===========
