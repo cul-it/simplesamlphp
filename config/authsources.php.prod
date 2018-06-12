@@ -19,7 +19,8 @@ $config = array(
 		// see https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1_1
         // these are from self-signed certificate in /cert
 		'privatekey' => 'saml.pem',
-        'certificate' => 'saml.crt',        
+        'certificate' => 'saml.crt',
+		'assertion.encryption' => TRUE,        
 
 		// The entity ID of this SP.
 		// Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
