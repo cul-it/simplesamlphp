@@ -20,7 +20,10 @@ $config = array(
         // these are from self-signed certificate in /cert
 		'privatekey' => 'saml.pem',
         'certificate' => 'saml.crt',
-		'assertion.encryption' => TRUE,        
+
+		// this has to be set FALSE until production metadata has been updated
+		// to saml20 by identity mangagement
+		'assertion.encryption' => FALSE,        
 
 		// The entity ID of this SP.
 		// Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
