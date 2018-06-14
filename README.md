@@ -52,16 +52,25 @@ How to use:
 ===========
 
 1. If it's not already there, create a [mysite]/private directory in your Drupal site root directory (same place as Drupal's index.php).
-2. Clone this repo into [mysite]/private/cul-it-simplesamlphp, then delete the .git directory [mysite]/private/cul-it-simplesamlphp/.git
-3. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/cul-it-simplesamlphp/www. (1)
-4. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
-5. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run composer update --lock
-6. For Drupal 7, *IF .gitignore CONTAINS /vendor THEN* add some lines to .gitignore to allow the cul-it-simplesamlphp/vendor directory to be uploaded (4)
-7. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-8. Push the changes to the remote Pantheon git repo for the dev site.
-9. Clone the Files from the Pantheon production site to the dev site
-10. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
-11. Test at http://[sitename]/simplesaml/module.php/core/authenticate.php
+2. You can modify this shell script (5) to eliminate steps 3-5 below.
+3. Clone this repo into [mysite]/private/cul-it-simplesamlphp, then delete the .git directory [mysite]/private/cul-it-simplesamlphp/.git
+4. Create a symlink in your Drupal site root directory called simplesaml that leads to /private/cul-it-simplesamlphp/www. (1)
+5. Add some code to your sites/default directory. Instructions for this are in the [pantheon-settings](https://github.com/cul-it/pantheon-settings) GitHub repo.
+6. If the domain name of the site does NOT follow the pattern xxx.library.cornell.edu (eg. copyright.cornell.edu), update the $settings['trusted_host_patterns'] array in settings.cornell.library.php.
+7. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run composer update --lock
+8. For Drupal 7, *IF .gitignore CONTAINS /vendor THEN* add some lines to .gitignore to allow the cul-it-simplesamlphp/vendor directory to be uploaded (4)
+9. Remove the old version of the code from /private/pantheon.simplesaml
+10. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
+11. Push the changes to the remote Pantheon git repo for the dev site.
+12. Clone the Files & Database from the Pantheon production site to the dev site
+13. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+14. Confirm Federated Log In works on the dev site
+15. Deploy code to the test site the usual way (all 3 items checked).
+16. Clone just the Files from the dev site to test site, with update and clear caches checked. 
+17. Confirm Federated Log In works on the test site.
+18. Clone just the files from dev to the live site with update and clear caches checked.
+19. Deploy code from test to live, with update and clear checked.
+20. Confirm Federated Log In works on the real domain name of the live site.
 
 (1)
 
