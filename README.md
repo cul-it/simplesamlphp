@@ -174,6 +174,31 @@ vendor/
 
 ```
 
+(5)
+```
+export SAML=~/Documents/simplesaml-merge/cul-it-simplesamlphp
+# target
+export TARGET=~/Documents/pantheon-git/lawlibrarycornelledu
+#drupal version
+export DRUPAL=7
+
+mkdir -p "${TARGET}/private"
+rsync -azvh $SAML "${TARGET}/private" --exclude=.git
+rm "${TARGET}/simplesaml"
+cd $TARGET
+ln -s ./private/cul-it-simplesamlphp/www simplesaml
+
+if [ "$DRUPAL" -eq 8 ]; then
+cp ~/Documents/pantheon-settings/d8.settings.php "${TARGET}/sites/default/settings.php"
+else
+cp ~/Documents/pantheon-settings/d7.settings.php "${TARGET}/sites/default/settings.php"
+fi
+cp ~/Documents/pantheon-settings/settings.cornell.library.php "${TARGET}/sites/default/settings.cornell.library.php"
+
+echo $TARGET
+grep vendor "${TARGET}/.gitignore" || echo "no vendor in .gitignore"
+```
+
 Details:
 ===========
 There are 3 files that differ depending on whether you're in production or non-production (test) mode:
