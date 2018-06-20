@@ -61,16 +61,17 @@ How to use:
 8. For Drupal 8, add some code to the composer.json file in the document root directory. (3) Then run composer update --lock
 9. For Drupal 7, *IF .gitignore CONTAINS /vendor THEN* add some lines to .gitignore to allow the cul-it-simplesamlphp/vendor directory to be uploaded (4)
 10. You'll need to download and install simplesamlphp_auth (and externalauth for Drupal 8) to get the Federated Login link.
-11. Push the changes to the remote Pantheon git repo for the dev site.
-12. Clone the Files & Database from the Pantheon production site to the dev site
-13. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
-14. Confirm Federated Log In works on the dev site
-15. Deploy code to the test site the usual way (all 3 items checked).
-16. Clone just the Files from the dev site to test site, with update and clear caches checked. 
-17. Confirm Federated Log In works on the test site.
-18. Clone just the files from dev to the live site with update and clear caches checked.
-19. Deploy code from test to live, with update and clear checked.
-20. Confirm Federated Log In works on the real domain name of the live site.
+11. Make a full backup of the dev site.
+12. Push the changes to the remote Pantheon git repo for the dev site.
+13. Clone the Files & Database from the Pantheon production site to the dev site
+14. Modify the shell script (2) for your site rsync the /cul-it-simplesamlphp directory into your site at /files/private/cul-it-simplesamlphp and run it
+15. Confirm Federated Log In works on the dev site
+16. Deploy code to the test site the usual way (all 3 items checked).
+17. Clone just the Files from the dev site to test site, with update and clear caches checked. 
+18. Confirm Federated Log In works on the test site.
+19. Clone just the files from dev to the live site with update and clear caches checked.
+20. Deploy code from test to live, with update and clear checked.
+21. Confirm Federated Log In works on the real domain name of the live site.
 
 (1)
 
